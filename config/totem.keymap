@@ -1,3 +1,4 @@
+
 //
 //                                                        ▀▀▀▀▀     ▀▀▀▀▀          ▀▀█▀▀
 //                                                        ▄▀▀▀▄  ▄  ▄▀▀▀▄  ▄  ▄▀▀▀▄  █  ▄▀▀▀▄
@@ -13,10 +14,11 @@
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 800  // default: 600
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 4000 // default: 600
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 15    // default: 10
 #define BASE 0
 #define NAV  1
@@ -53,9 +55,48 @@
         };
 
         option {
-            bindings = <&mo 3>;
+            bindings = <&mo 6>;
             key-positions = <22 23 24 21>;
             timeout-ms = <100>;
+        };
+
+        Bluetooth {
+            bindings = <&mo 7>;
+            key-positions = <0 1 2 3>;
+        };
+
+        Paste {
+            bindings = <&kp LC(V)>;
+            key-positions = <23 25>;
+        };
+
+        Copy {
+            bindings = <&kp LC(C)>;
+            key-positions = <23 24>;
+        };
+
+        Cut {
+            bindings = <&kp LC(X)>;
+            key-positions = <22 23>;
+        };
+
+        Undo {
+            bindings = <&kp LC(Z)>;
+            key-positions = <21 22>;
+        };
+
+        Select_All {
+            bindings = <&kp LC(A)>;
+            key-positions = <11 12>;
+        };
+    };
+
+    behaviors {
+        CTRL_CAPS: CTRL_CAPS {
+            compatible = "zmk,behavior-tap-dance";
+            label = "CTRL_CAPS";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_CONTROL>, <&kp CAPSLOCK>;
         };
     };
 
@@ -64,7 +105,7 @@
 
         // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 
-        base_layer {
+        One_Product {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 
             label = "BASE";
@@ -81,14 +122,42 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-                       &kp Q  &kp Y     &kp O         &kp X       &kp J             &kp G      &kp W  &kp D          &kp L  &kp P
-                       &kp H  &kp I     &kp E         &kp A       &kp U             &kp M      &kp T  &kp S          &kp R  &kp N
-&mt CAPS LEFT_CONTROL  &kp K  &kp SEMI  &kp APOS      &kp PERIOD  &kp COMMA         &kp B      &kp V  &kp F          &kp C  &kp Z  &kp BACKSPACE
-                                        &kp LEFT_GUI  &sl 1       &kp LEFT_SHIFT    &kp SPACE  &sl 2  &kp RIGHT_ALT
+            &kp P  &kp L  &kp D         &kp W  &kp G             &kp J      &kp X    &kp O          &kp Y    &kp Q
+            &kp N  &kp R  &kp S         &kp T  &kp M             &kp U      &kp A    &kp E          &kp I    &kp H
+&CTRL_CAPS  &kp Z  &kp C  &kp F         &kp V  &kp B             &kp COMMA  &kp DOT  &kp SEMI       &kp SQT  &kp K  &kp BACKSPACE
+                          &kp LEFT_GUI  &mo 4  &kp LEFT_SHIFT    &kp SPACE  &mo 5    &kp RIGHT_ALT
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+        DVORAK {
+            label = "Layout DVORAK";
+            bindings = <
+            &kp SEMI  &kp COMMA  &kp DOT       &kp P  &kp Y             &kp F      &kp G  &kp C          &kp R  &kp L
+            &kp A     &kp O      &kp E         &kp U  &kp I             &kp D      &kp H  &kp T          &kp N  &kp S
+&CTRL_CAPS  &kp APOS  &kp Q      &kp J         &kp K  &kp X             &kp B      &kp M  &kp W          &kp V  &kp Z  &kp BACKSPACE
+                                 &kp LEFT_GUI  &mo 4  &kp LEFT_SHIFT    &kp SPACE  &mo 5  &kp RIGHT_ALT
+            >;
+        };
+
+        Colemak_DH-m {
+            label = "LAYOUT COLEMAK DH-m";
+            bindings = <
+            &kp Q  &kp W  &kp F         &kp P  &kp B             &kp J      &kp L  &kp U          &kp Y    &kp SEMI
+            &kp A  &kp R  &kp S         &kp T  &kp G             &kp M      &kp N  &kp E          &kp I    &kp O
+&CTRL_CAPS  &kp Z  &kp X  &kp C         &kp D  &kp V             &kp K      &kp H  &kp COMMA      &kp DOT  &kp APOS  &kp BACKSPACE
+                          &kp LEFT_GUI  &mo 4  &kp LEFT_SHIFT    &kp SPACE  &mo 5  &kp RIGHT_ALT
+            >;
+        };
+
+        QWERTY {
+            label = "LAYOUT QWERTY";
+            bindings = <
+            &kp Q  &kp W  &kp E         &kp R  &kp T             &kp Y      &kp U  &kp I          &kp O    &kp P
+            &kp A  &kp S  &kp D         &kp F  &kp G             &kp H      &kp J  &kp K          &kp L    &kp SEMI
+&CTRL_CAPS  &kp Z  &kp X  &kp C         &kp V  &kp B             &kp N      &kp M  &kp COMMA      &kp DOT  &kp FSLH  &kp BACKSPACE
+                          &kp LEFT_GUI  &mo 4  &kp LEFT_SHIFT    &kp SPACE  &mo 5  &kp RIGHT_ALT
+            >;
+        };
 
         Special_Character {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -114,8 +183,6 @@
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
         Movement {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 
@@ -140,8 +207,6 @@
             >;
         };
 
-        // ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-
         Option {
             // ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 
@@ -159,10 +224,19 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-        &sys_reset   &trans  &trans  &trans  &trans    &kp C_POWER  &trans             &trans                &trans            &trans
+        &sys_reset   &trans  &trans  &trans  &trans    &kp C_POWER  &tog 0             &tog 1                &tog 2            &tog 3
         &bootloader  &trans  &trans  &trans  &trans    &trans       &kp C_VOLUME_UP    &kp C_BRIGHTNESS_INC  &kp C_SLEEP_MODE  &trans
 &trans  &trans       &trans  &trans  &trans  &trans    &trans       &kp C_VOLUME_DOWN  &kp C_BRIGHTNESS_DEC  &trans            &trans  &trans
                              &trans  &trans  &trans    &trans       &trans             &trans
+            >;
+        };
+
+        Bluetooth {
+            bindings = <
+        &trans  &trans  &trans  &trans  &trans    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
+        &trans  &trans  &trans  &trans  &trans    &trans        &trans        &trans        &trans        &trans
+&trans  &trans  &trans  &trans  &trans  &trans    &trans        &trans        &trans        &trans        &trans        &trans
+                        &trans  &trans  &trans    &trans        &trans        &trans
             >;
         };
     };
