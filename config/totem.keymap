@@ -1,3 +1,4 @@
+
 //
 //                                                        ▀▀▀▀▀     ▀▀▀▀▀          ▀▀█▀▀
 //                                                        ▄▀▀▀▄  ▄  ▄▀▀▀▄  ▄  ▄▀▀▀▄  █  ▄▀▀▀▄
@@ -34,14 +35,14 @@
 
 &sk {
     quick-release;
-    release-after-ms = <1>;
+    release-after-ms = <350>;
 };
 
 &soft_off {
     hold-time-ms = <2000>; // Only turn off it the key is held for 3 seconds or longer.
 };
 
-&sl { release-after-ms = <1000>; };
+&sl { release-after-ms = <350>; };
 
 / {
     combos {
@@ -51,27 +52,27 @@
             timeout-ms = <30>;
             key-positions = <2 1>;
             bindings = <&kp ESC>;
-            layers = <0 1 2 4 3 5 7>;
+            layers = <0 1 2 4 3 5 7 11>;
         };
 
         enter {
             bindings = <&kp ENTER>;
             key-positions = <16 17 18>;
             timeout-ms = <30>;
-            layers = <0 1 2 4 3 6 7 5>;
+            layers = <0 1 2 4 3 6 7 5 11>;
         };
 
         tab {
             bindings = <&kp TAB>;
             key-positions = <13 12>;
             timeout-ms = <30>;
-            layers = <0 1 2 4 3 5 6 7>;
+            layers = <0 1 2 4 3 5 6 7 11>;
         };
 
         option {
             bindings = <&mo 8>;
             key-positions = <22 23 21>;
-            timeout-ms = <50>;
+            timeout-ms = <30>;
             layers = <0 1 2 4 3>;
         };
 
@@ -85,7 +86,7 @@
         Option_2 {
             bindings = <&mo 8>;
             key-positions = <29 28 30>;
-            timeout-ms = <50>;
+            timeout-ms = <30>;
             layers = <0 1 2 4 3>;
         };
 
@@ -109,14 +110,16 @@
             compatible = "zmk,behavior-tap-dance";
             label = "CTRL_CAPS";
             #binding-cells = <0>;
-            bindings = <&sk LEFT_CONTROL>, <&kp CAPSLOCK>;
+            bindings = <&kp LEFT_CONTROL>, <&kp CAPSLOCK>;
+
+            tapping-term-ms = <250>;
         };
 
         Pressy_Layer: Pressy_Layer {
             compatible = "zmk,behavior-tap-dance";
             label = "PRESSY_LAYER";
             #binding-cells = <0>;
-            bindings = <&none>, <&none>, <&tog 11>;
+            bindings = <&none>, <&none>, <&tog 12>;
 
             tapping-term-ms = <250>;
         };
@@ -128,23 +131,29 @@
             bindings = <&kp RIGHT_ALT>, <&tog 7>;
         };
 
-        Num_Mov: Num_Mov {
+        SYM_NUM: SYM_NUM {
             compatible = "zmk,behavior-tap-dance";
-            label = "NUM_MOV";
+            label = "SYM_NUM";
             #binding-cells = <0>;
-            bindings = <&sl 12>, <&tog 7>;
+            bindings = <&sl 5>, <&sl 11>;
 
             tapping-term-ms = <250>;
         };
 
-        gaming: gaming {
+        MOV: MOV {
             compatible = "zmk,behavior-tap-dance";
-            label = "GAMING";
+            label = "MOV";
             #binding-cells = <0>;
-            bindings = <&mo 5>, <&tog 12>;
+            bindings = <&mo 7>, <&tog 7>;
 
             tapping-term-ms = <250>;
         };
+    };
+
+    behaviors {
+    };
+
+    behaviors {
     };
 
     keymap {
@@ -169,10 +178,10 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-            &kp P  &kp L  &kp D         &kp W  &kp G             &kp J      &kp X     &kp O     &kp Y    &kp Q
-            &kp N  &kp R  &kp S         &kp T  &kp M             &kp U      &kp A     &kp E     &kp I    &kp H
-&CTRL_CAPS  &kp Z  &kp C  &kp F         &kp V  &kp B             &kp COMMA  &kp DOT   &kp SEMI  &kp SQT  &kp K  &kp BACKSPACE
-                          &kp LEFT_ALT  &sl 5  &sk LEFT_SHIFT    &kp SPACE  &Num_Mov  &kp LGUI
+            &kp P  &kp L  &kp D         &kp W     &kp G             &kp J      &kp X    &kp O     &kp Y    &kp Q
+            &kp N  &kp R  &kp S         &kp T     &kp M             &kp U      &kp A    &kp E     &kp I    &kp H
+&CTRL_CAPS  &kp Z  &kp C  &kp F         &kp V     &kp B             &kp COMMA  &kp DOT  &kp SEMI  &kp SQT  &kp K  &kp BACKSPACE
+                          &kp LEFT_ALT  &SYM_NUM  &sk LEFT_SHIFT    &kp SPACE  &MOV     &kp LGUI
             >;
         };
 
@@ -199,10 +208,10 @@
         Gaming {
             label = "Gaming Layer";
             bindings = <
-                  &kp P  &kp L  &kp D     &kp W         &kp G             &kp J      &kp X    &kp O          &kp Y    &kp Q
-                  &kp N  &kp R  &kp S     &kp T         &kp M             &kp U      &kp A    &kp E          &kp I    &kp H
-&kp LEFT_CONTROL  &kp Z  &kp C  &kp F     &kp V         &kp B             &kp COMMA  &kp DOT  &kp SEMI       &kp SQT  &kp K  &kp BACKSPACE
-                                &kp CAPS  &kp LEFT_ALT  &kp LEFT_SHIFT    &kp SPACE  &gaming  &kp RIGHT_WIN
+                  &kp P  &kp L  &kp D   &kp W         &kp G             &kp J      &kp X    &kp O          &kp Y    &kp Q
+                  &kp N  &kp R  &kp S   &kp T         &kp M             &kp U      &kp A    &kp E          &kp I    &kp H
+&kp LEFT_CONTROL  &kp Z  &kp C  &kp F   &kp V         &kp B             &kp COMMA  &kp DOT  &kp SEMI       &kp SQT  &kp K  &kp BACKSPACE
+                                &mo 10  &kp LEFT_ALT  &kp LEFT_SHIFT    &kp SPACE  &MOV     &kp RIGHT_WIN
             >;
         };
 
@@ -242,10 +251,10 @@
 
         Number {
             bindings = <
-        &none  &none  &none   &none   &none     &none   &kp N7  &kp N8  &kp N9  &none
-        &none  &none  &none   &none   &none     &none   &kp N4  &kp N5  &kp N6  &none
-&trans  &none  &none  &none   &none   &none     &none   &kp N1  &kp N2  &kp N3  &none  &trans
-                      &trans  &trans  &trans    &trans  &kp N0  &trans
+        &none   &none   &none   &none   &none     &none   &none   &none   &none   &none
+        &kp N1  &kp N2  &kp N3  &kp N4  &kp N5    &kp N6  &kp N7  &kp N8  &kp N9  &kp N0
+&trans  &none   &none   &none   &none   &none     &none   &none   &none   &none   &none   &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -290,7 +299,7 @@
             //                                     ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛   ┗━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┛
 
             bindings = <
-        &tog 11  &trans  &out OUT_BLE  &out OUT_USB  &soft_off    &tog 0          &tog 1             &tog 2                &tog 3       &tog 4
+        &tog 12  &trans  &out OUT_BLE  &out OUT_USB  &soft_off    &tog 0          &tog 1             &tog 2                &tog 3       &tog 4
         &trans   &trans  &trans        &trans        &trans       &kp C_PREVIOUS  &kp C_VOLUME_UP    &kp C_BRIGHTNESS_INC  &kp C_PAUSE  &kp C_NEXT
 &trans  &trans   &trans  &trans        &trans        &trans       &kp C_MUTE      &kp C_VOLUME_DOWN  &kp C_BRIGHTNESS_DEC  &trans       &trans      &trans
                          &trans        &trans        &trans       &trans          &trans             &trans
@@ -315,21 +324,21 @@
             >;
         };
 
+        Num_Progam {
+            bindings = <
+        &none   &none   &none   &none   &none     &none   &none   &none   &none   &none
+        &kp N7  &kp N5  &kp N3  &kp N1  &kp N9    &kp N0  &kp N2  &kp N4  &kp N6  &kp N8
+&trans  &none   &none   &none   &none   &none     &none   &none   &none   &none   &none   &trans
+                        &trans  &trans  &trans    &trans  &trans  &trans
+            >;
+        };
+
         None_Layer {
             bindings = <
        &none  &none  &none          &none  &none    &none  &none  &none  &none  &none
        &none  &none  &none          &none  &none    &none  &none  &none  &none  &none
 &none  &none  &none  &none          &none  &none    &none  &none  &none  &none  &none  &none
                      &Pressy_Layer  &none  &none    &none  &none  &none
-            >;
-        };
-
-        Progamming_Num {
-            bindings = <
-        &none   &none   &none   &none   &none     &none   &none   &none   &none   &none
-        &kp N7  &kp N5  &kp N3  &kp N1  &kp N9    &kp N0  &kp N2  &kp N4  &kp N6  &kp N8
-&trans  &none   &none   &none   &none   &none     &none   &none   &none   &none   &none   &trans
-                        &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
     };
